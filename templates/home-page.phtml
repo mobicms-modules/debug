@@ -1,0 +1,41 @@
+<?php
+
+$this->layout('stub-app::layout', ['title' => 'Home']);
+$notUsed = '<span class="badge bg-warning text-dark">No module, or not used</span>';
+?>
+
+<div class="alert alert-primary">
+    <h1>Welcome to <span style="color: green">mobiCMS</span></h1>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h3><i class="bi bi-broadcast"></i> Test IP and UserAgent</h3>
+        <ul>
+            <li><strong>IP:</strong> <?= $ip ?></li>
+            <li><strong>IP via Proxy:</strong> <?= $ipViaProxy ?></li>
+            <li><strong>UserAgent:</strong> <?= $userAgent ?></li>
+        </ul>
+    </div>
+
+    <div class="col-md-4">
+        <h3><i class="bi-server"></i> Test Database</h3>
+        <?php if (! empty($pdoDemo)): ?>
+            <ul>
+                <?php foreach ($pdoDemo as $demo): ?>
+                    <li><?= $demo ?></li>
+                <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+            <?= $notUsed ?>
+        <?php endif; ?>
+    </div>
+
+    <div class="col-md-4">
+        <h3><a href="#"><i class="bi-info-circle-fill"></i> Lorem ipsum</a></h3>
+        <p>
+            Curabitur in eleifend orci. Quisque congue mattis bibendum. Fusce gravida porttitor mauris, eget mollis lacus maximus mattis.
+            <br><a href="#" target="_blank">Nulla facilisi</a>
+        </p>
+    </div>
+</div>

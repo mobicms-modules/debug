@@ -1,0 +1,24 @@
+{
+    "name": "mobicms-modules/debug",
+    "description": "Debug application",
+    "type": "mobicms-module",
+    "homepage": "https://github.com/mobicms-modules/stub",
+    "license": "GPL-3.0-only",
+    "keywords": [
+        "mobicms",
+        "demo"
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^7.4 || ^8.0"
+    },
+    "require-dev": {
+        "mobicms/mobicms": "dev-develop"
+    },
+    "autoload": {
+        "psr-4": {
+            "MobicmsModules\\Debug\\": "src/"
+        }
+    }
+}
