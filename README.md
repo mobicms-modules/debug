@@ -16,7 +16,7 @@ and used exclusively for debugging during the development process.
       }
     ]
     ```
-3. Update dependencies `composer update`.
+3. Install dependency `composer require mobicms-modules/debug:dev-develop`.
 4. Add any route you want to [routes.php](https://github.com/mobicms/mobicms-skeleton/blob/develop/mobicms/config/routes.php)
 for example `/debug`
     ```php
