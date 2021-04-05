@@ -8,4 +8,4 @@
  * @copyright https://github.com/mobicms-modules/stub/blob/develop/README.md
  */
 
-return (new Mobicms\Modules\Stub\ConfigProvider)();
+return (new MobicmsModules\Debug\ConfigProvider)();
