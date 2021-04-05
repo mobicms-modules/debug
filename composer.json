@@ -2,11 +2,11 @@
     "name": "mobicms-modules/debug",
     "description": "Debug application",
     "type": "mobicms-module",
-    "homepage": "https://github.com/mobicms-modules/stub",
+    "homepage": "https://github.com/mobicms-modules/debug",
     "license": "GPL-3.0-only",
     "keywords": [
         "mobicms",
-        "demo"
+        "debug"
     ],
     "minimum-stability": "dev",
     "prefer-stable": true,

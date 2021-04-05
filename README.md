@@ -8,7 +8,7 @@ and used exclusively for debugging during the development process.
 ## Installation
 1. You must use the [mobicms/mobicms-skeleton](https://github.com/mobicms/mobicms-skeleton) package
 2. Add repository to its **composer.json**  
-    ```json
+    ```JSON
     "repositories": [
        {
         "type": "vcs",
@@ -22,6 +22,7 @@ for example `/debug`
     ```php
     $app->get('/debug', \MobicmsModules\Debug\HomePageHandler::class, 'home');
     ```
+5. Done. You can open debug information at the URL you specified above.
 
 ## License
 This package is licensed for use under the GNU General Public License v3.0 (GPL-3.0).  
