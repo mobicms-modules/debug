@@ -36,11 +36,27 @@ class HomePageHandler implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $sever = $request->getServerParams();
+        $data['webServer'] = $sever['SERVER_SOFTWARE'] ?? 'Unknown';
         $data['ip'] = $request->getAttribute(IpAndUserAgentMiddleware::IP_ADDR, 'Empty');
-        $data['ipViaProxy'] = $request->getAttribute(IpAndUserAgentMiddleware::IP_VIA_PROXY_ADDR, 'Empty');
+        $data['ipViaProxy'] = $this->getIpViaProxy($request);
         $data['userAgent'] = $request->getAttribute(IpAndUserAgentMiddleware::USER_AGENT, 'Empty');
         $data['pdoDemo'] = null;
 
         return new HtmlResponse($this->engine->render('stub-app::home-page', $data));
+    }
+
+    private function getIpViaProxy(ServerRequestInterface $request): string
+    {
+        $ip = $request->getAttribute(IpAndUserAgentMiddleware::IP_VIA_PROXY_ADDR);
+
+        if (null === $ip) {
+            $request = $request->withHeader('X-Forwarded-For', '93.184.216.34');
+            $middleware = new IpAndUserAgentMiddleware();
+            $ip = '<span class="badge rounded-pill bg-warning text-dark">FAKE</span> ';
+            $ip .= $middleware->determineIpViaProxyAddress($request);
+        }
+
+        return $ip;
     }
 }

@@ -12,9 +12,7 @@
     <style>
         body { padding-top: 54px }
         h3 a { color: #657187; text-decoration: none }
-        .alert{ margin-bottom: 2em }
         .app { min-height: 100vh }
-        .app-footer { padding-bottom: 1em }
         .bg-darka { background-color: #4E5869 }
     </style>
 </head>
@@ -50,18 +48,5 @@
             <?=$this->section('content')?>
         </main>
     </div>
-
-    <footer class="app-footer">
-        <div class="container">
-            <hr />
-            <?php if ($this->section('footer')): ?>
-                <?=$this->section('footer')?>
-            <?php endif ?>
-        </div>
-    </footer>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-    <?=$this->section('javascript')?>
 </body>
 </html>

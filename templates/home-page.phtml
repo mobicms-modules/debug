@@ -1,16 +1,45 @@
 <?php
 
 $this->layout('stub-app::layout', ['title' => 'Home']);
-$notUsed = '<span class="badge bg-warning text-dark">No module, or not used</span>';
+$notUsed = '<span class="badge rounded-pill bg-warning text-dark">DOES NOT EXIST</span>';
 ?>
 
 <div class="alert alert-primary">
-    <h1>Welcome to <span style="color: green">mobiCMS</span></h1>
+    <h1><span style="color: green">mobiCMS</span> Debug Module</h1>
+    <p>
+        This module used exclusively during the development process
+        and contains various useful and debugging information.<br>
+        <strong>Do not use in living systems, or protect access with a password!</strong>
+    </p>
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <h3><i class="bi bi-broadcast"></i> Test IP and UserAgent</h3>
+        <h3><i class="bi-info-circle-fill"></i> System Information</h3>
+        <ul>
+            <li><strong>OS:</strong> <?= php_uname('v') ?></li>
+            <li><strong>WEB Server:</strong> <?= $webServer ?></li>
+            <li><strong>PHP version:</strong> <?= phpversion() ?></li>
+            <li>
+                <strong>Extensions:</strong>
+                <ul>
+                    <?php $extensions = ['gd', 'mbstring', 'pdo'] ?>
+                    <?php foreach ($extensions as $extension): ?>
+                        <li>
+                            <?= (
+                            extension_loaded($extension)
+                                ? '<span class="badge rounded-pill bg-success">YES</span>'
+                                : '<span class="badge rounded-pill bg-danger">NO</span>'
+                            ) . ' ' . $extension ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-md-4">
+        <h3><i class="bi bi-broadcast"></i> Client IP and UserAgent</h3>
         <ul>
             <li><strong>IP:</strong> <?= $ip ?></li>
             <li><strong>IP via Proxy:</strong> <?= $ipViaProxy ?></li>
@@ -19,7 +48,7 @@ $notUsed = '<span class="badge bg-warning text-dark">No module, or not used</spa
     </div>
 
     <div class="col-md-4">
-        <h3><i class="bi-server"></i> Test Database</h3>
+        <h3><i class="bi-server"></i> Example Database</h3>
         <?php if (! empty($pdoDemo)): ?>
             <ul>
                 <?php foreach ($pdoDemo as $demo): ?>
@@ -30,12 +59,20 @@ $notUsed = '<span class="badge bg-warning text-dark">No module, or not used</spa
             <?= $notUsed ?>
         <?php endif; ?>
     </div>
+</div>
 
-    <div class="col-md-4">
-        <h3><a href="#"><i class="bi-info-circle-fill"></i> Lorem ipsum</a></h3>
-        <p>
-            Curabitur in eleifend orci. Quisque congue mattis bibendum. Fusce gravida porttitor mauris, eget mollis lacus maximus mattis.
-            <br><a href="#" target="_blank">Nulla facilisi</a>
-        </p>
-    </div>
+<div class="alert alert-secondary" style="margin-top: 1em">
+    <h5>Note:</h5>
+    <ul>
+        <li>
+            Some values may have a <span class="badge rounded-pill bg-light text-dark">FAKE</span> label.
+            This means that the necessary initial information was not available and the value was generated
+            forcibly in order to check the operability of the corresponding subsystems.
+        </li>
+        <li>
+            If there is label <span class="badge rounded-pill bg-light text-dark">DOES NOT EXIST</span>
+            it means, that the appropriating subsystem at the moment is absent,
+            or for some reason it cannot be used.
+        </li>
+    </ul>
 </div>
