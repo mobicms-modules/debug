@@ -14,14 +14,14 @@ $notUsed = '<span class="badge rounded-pill bg-warning text-dark">DOES NOT EXIST
 </div>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 p-4">
         <h3><i class="bi-info-circle-fill"></i> System Information</h3>
         <ul>
             <li><strong>OS:</strong> <?= php_uname('v') ?></li>
             <li><strong>WEB Server:</strong> <?= $webServer ?></li>
-            <li><strong>PHP version:</strong> <?= phpversion() ?></li>
+            <li><strong>PHP Version:</strong> <?= phpversion() ?></li>
             <li>
-                <strong>Extensions:</strong>
+                <strong>PHP Extensions:</strong>
                 <ul>
                     <?php $extensions = ['gd', 'mbstring', 'pdo'] ?>
                     <?php foreach ($extensions as $extension): ?>
@@ -38,7 +38,7 @@ $notUsed = '<span class="badge rounded-pill bg-warning text-dark">DOES NOT EXIST
         </ul>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-4 p-4">
         <h3><i class="bi bi-broadcast"></i> Client IP and UserAgent</h3>
         <ul>
             <li><strong>IP:</strong> <?= $ip ?></li>
@@ -47,7 +47,7 @@ $notUsed = '<span class="badge rounded-pill bg-warning text-dark">DOES NOT EXIST
         </ul>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-4 p-4">
         <h3><i class="bi-server"></i> Example Database</h3>
         <?php if (! empty($pdoDemo)): ?>
             <ul>
@@ -58,6 +58,28 @@ $notUsed = '<span class="badge rounded-pill bg-warning text-dark">DOES NOT EXIST
         <?php else: ?>
             <?= $notUsed ?>
         <?php endif; ?>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 p-4">
+        <h3><i class="bi-stack"></i> Request Attributes</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Key</th>
+                <th scope="col">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($psrattributes as $key => $val): ?>
+                <tr>
+                    <th scope="row"><?= $key ?></th>
+                    <td><?= $val ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
 </div>
 

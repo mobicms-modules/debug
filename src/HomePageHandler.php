@@ -43,6 +43,21 @@ class HomePageHandler implements RequestHandlerInterface
         $data['userAgent'] = $request->getAttribute(IpAndUserAgentMiddleware::USER_AGENT, 'Empty');
         $data['pdoDemo'] = null;
 
+        $data['diServices'] = [];
+
+        $data['psrattributes'] = [];
+        foreach ($request->getAttributes() as $key => $val) {
+            if (is_string($val) || is_int($val)) {
+                $data['psrattributes'][$key] = $val;
+            } elseif (is_array($val)) {
+                $data['psrattributes'][$key] = 'array';
+            } elseif(is_object($val)){
+                $data['psrattributes'][$key] = 'object';
+            } else {
+                $data['psrattributes'][$key] = 'other';
+            }
+        }
+
         return new HtmlResponse($this->engine->render('stub-app::home-page', $data));
     }
 
