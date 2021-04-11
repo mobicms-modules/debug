@@ -13,13 +13,19 @@ declare(strict_types=1);
 namespace MobicmsModules\Debug;
 
 use Mobicms\Render\Engine;
+use PDO;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 class HomePageHandlerFactory
 {
-    public function __invoke(ContainerInterface $container) : RequestHandlerInterface
+    public function __invoke(ContainerInterface $container): RequestHandlerInterface
     {
-        return new HomePageHandler($container->get(Engine::class));
+        $pdo = $container->has(PDO::class) ? $container->get(PDO::class) : null;
+
+        return new HomePageHandler(
+            $container->get(Engine::class),
+            $pdo
+        );
     }
 }

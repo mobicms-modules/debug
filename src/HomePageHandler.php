@@ -14,6 +14,7 @@ namespace MobicmsModules\Debug;
 
 use Mobicms\Render\Engine;
 use Mobicms\System\Environment\IpAndUserAgentMiddleware;
+use PDO;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -23,10 +24,12 @@ use Throwable;
 class HomePageHandler implements RequestHandlerInterface
 {
     private Engine $engine;
+    private ?PDO $pdo;
 
-    public function __construct(Engine $engine)
+    public function __construct(Engine $engine, ?PDO $pdo = null)
     {
         $this->engine = $engine;
+        $this->pdo = $pdo;
     }
 
     /**
@@ -39,19 +42,18 @@ class HomePageHandler implements RequestHandlerInterface
         $sever = $request->getServerParams();
         $data['webServer'] = $sever['SERVER_SOFTWARE'] ?? 'Unknown';
         $data['ip'] = $request->getAttribute(IpAndUserAgentMiddleware::IP_ADDR, 'Empty');
-        $data['ipViaProxy'] = $this->getIpViaProxy($request);
+        $data['ipViaProxy'] = $this->getIpViaProxyDemo($request);
         $data['userAgent'] = $request->getAttribute(IpAndUserAgentMiddleware::USER_AGENT, 'Empty');
-        $data['pdoDemo'] = null;
-
-        $data['diServices'] = [];
+        $data['pdoDemo'] = $this->pdoDemo();
 
         $data['psrattributes'] = [];
+
         foreach ($request->getAttributes() as $key => $val) {
             if (is_string($val) || is_int($val)) {
                 $data['psrattributes'][$key] = $val;
             } elseif (is_array($val)) {
                 $data['psrattributes'][$key] = 'array';
-            } elseif(is_object($val)){
+            } elseif (is_object($val)) {
                 $data['psrattributes'][$key] = 'object';
             } else {
                 $data['psrattributes'][$key] = 'other';
@@ -61,7 +63,22 @@ class HomePageHandler implements RequestHandlerInterface
         return new HtmlResponse($this->engine->render('stub-app::home-page', $data));
     }
 
-    private function getIpViaProxy(ServerRequestInterface $request): string
+    private function pdoDemo()
+    {
+        $data = [];
+
+        if (null !== $this->pdo) {
+            $req = $this->pdo->query('SELECT * FROM `test`');
+
+            while ($res = $req->fetch()) {
+                $data[] = $res['name'];
+            }
+        }
+
+        return $data;
+    }
+
+    private function getIpViaProxyDemo(ServerRequestInterface $request): string
     {
         $ip = $request->getAttribute(IpAndUserAgentMiddleware::IP_VIA_PROXY_ADDR);
 
